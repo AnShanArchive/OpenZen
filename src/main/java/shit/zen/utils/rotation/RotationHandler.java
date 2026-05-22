@@ -130,8 +130,9 @@ extends ClientBase {
         if (sentRotation != null && prevSentRotation != null && mc.player != null) {
             mc.player.setYHeadRot(sentRotation.getYaw());
             mc.player.setYBodyRot(sentRotation.getYaw());
+
             headTurnEvent.setYaw(sentRotation.getYaw());
-            headTurnEvent.setPitch(prevSentRotation.getYaw());
+            headTurnEvent.setLastYaw(prevSentRotation.getYaw());
         }
     }
 
@@ -170,24 +171,24 @@ extends ClientBase {
     @EventTarget
     public void onStrafe(StrafeEvent strafeEvent) {
         if (isRotating && targetRotation != null) {
-            float f = targetRotation.getYaw();
-            MovementUtil.handleStrafe(strafeEvent, f);
+            float yaw = targetRotation.getYaw();
+            MovementUtil.handleStrafe(strafeEvent, yaw);
         }
     }
 
     @EventTarget
     public void onRayTrace(RayTraceEvent rayTraceEvent) {
         if (targetRotation != null && rayTraceEvent.entity == mc.player && isRotating) {
-            rayTraceEvent.setRange(targetRotation.getYaw());
-            rayTraceEvent.setBlockRange(targetRotation.getPitch());
+            rayTraceEvent.setYaw(targetRotation.getYaw());
+            rayTraceEvent.setPitch(targetRotation.getPitch());
         }
     }
 
     @EventTarget
     public void onUseItemRayTrace(UseItemRayTraceEvent useItemRayTraceEvent) {
         if (targetRotation != null && isRotating) {
-            useItemRayTraceEvent.setRange(targetRotation.getYaw());
-            useItemRayTraceEvent.setBlockRange(targetRotation.getPitch());
+            useItemRayTraceEvent.setYaw(targetRotation.getYaw());
+            useItemRayTraceEvent.setPitch(targetRotation.getPitch());
         }
     }
 
@@ -201,14 +202,14 @@ extends ClientBase {
     @EventTarget
     public void onJump(JumpMarkerEvent jumpMarkerEvent) {
         if (isRotating && targetRotation != null) {
-            jumpMarkerEvent.setJumpHeight(targetRotation.getYaw());
+            jumpMarkerEvent.setYaw(targetRotation.getYaw());
         }
     }
 
     @EventTarget
     public void onFallFlying(FallFlyingEvent fallFlyingEvent) {
         if (targetRotation != null) {
-            fallFlyingEvent.setSpeed(targetRotation.getPitch());
+            fallFlyingEvent.setPitch(targetRotation.getPitch());
         }
     }
 

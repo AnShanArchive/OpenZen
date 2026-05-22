@@ -25,7 +25,7 @@ public class ItemPatch {
         if (ZenClient.isReady()) {
             ZenClient.getInstance().getEventBus().call(event);
         }
-        return event.getBlockRange();
+        return event.getPitch();
     }
 
     @WrapInvoke(
@@ -40,6 +40,6 @@ public class ItemPatch {
             System.out.println(DEBUG_PREFIX + player.getYRot());
             ZenClient.getInstance().getEventBus().call(event);
         }
-        return event.getRange();
+        return event.getYaw();
     }
 }

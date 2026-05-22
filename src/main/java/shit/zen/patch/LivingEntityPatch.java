@@ -79,8 +79,8 @@ public class LivingEntityPatch {
         if (ZenClient.isReady()) {
             ZenClient.getInstance().getEventBus().call(event);
         }
-        ClientBase.partialTicks = event.getJumpHeight();
-        return event.getJumpHeight();
+        ClientBase.partialTicks = event.getYaw();
+        return event.getYaw();
     }
 
     @Inject(method = "travel", desc = "(Lnet/minecraft/world/phys/Vec3;)V", at = @At(At.Type.HEAD))
@@ -101,7 +101,7 @@ public class LivingEntityPatch {
         if (ZenClient.isReady()) {
             ZenClient.getInstance().getEventBus().call(event);
         }
-        return event.getSpeed();
+        return event.getPitch();
     }
 
     @Inject(method = "hurt", desc = "(Lnet/minecraft/world/damagesource/DamageSource;F)Z", at = @At(At.Type.HEAD))
